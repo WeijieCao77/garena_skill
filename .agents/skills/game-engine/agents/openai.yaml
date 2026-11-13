@@ -1,0 +1,5 @@
+interface:
+  display_name: "Game Engine (web)"
+  short_description: "HTML5 Canvas/WebGL game loop, collision, controls (from github/awesome-copilot, MIT)"
+policy:
+  allow_implicit_invocation: false

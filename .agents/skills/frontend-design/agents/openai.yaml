@@ -1,0 +1,5 @@
+interface:
+  display_name: "Frontend Design (Anthropic)"
+  short_description: "Design planning and self-critique for distinctive UI (from anthropics/skills, Apache-2.0)"
+policy:
+  allow_implicit_invocation: false

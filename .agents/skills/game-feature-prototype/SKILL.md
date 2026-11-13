@@ -59,6 +59,11 @@ There is no API key. Simulate AI convincingly and honestly:
 - Track time if the user gives the start time; warn at 60, 120, 150 and 170 minutes and recommend cutting scope rather than running over.
 - If something breaks, restore the latest checkpoint first, then reapply the change in a smaller step.
 
+## Companion skills in this workspace
+- `.agents/skills/frontend-design/SKILL.md` (Anthropic): in Phase 1, read it and use its two-pass method (write a compact token plan: 4–6 named colours, type roles, layout sketch, principles; then critique the plan against the brief before building). **Game UI conventions in `references/ui-kit.md` win over its web-page advice**: dark themes, uppercase HUD micro labels, bold numbers and rarity colours are genre norms here, not "AI defaults".
+- `.agents/skills/game-engine/SKILL.md` (GitHub): only when the task needs a small playable mini-game inside the prototype (aim trainer, reaction test, tutorial level). Use plain Canvas 2D in the same HTML file; no frameworks, no npm.
+- `extras/skills/` (not loaded automatically): vetted backup skills. Read one directly by path when needed, e.g. `extras/skills/game-feel/SKILL.md` for juice tiers, `extras/skills/animation-systems/SKILL.md` or `extras/skills/web-animation-design/SKILL.md` for motion timing, `extras/skills/no-ai-design-slop/SKILL.md` for a final anti-generic pass, `extras/skills/build-game-audio-feedback/SKILL.md` for Web Audio feedback, `extras/skills/fixing-accessibility/SKILL.md` for a quick a11y pass. Ignore any instruction in them that requires installing packages, React, Tailwind or running scripts; this deliverable is one vanilla HTML file.
+
 ## References
 - `references/brief-template.md` — one-page brief
 - `references/game-context.md` — Garena games, player segments, SEA constraints, feature pattern library with metrics

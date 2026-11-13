@@ -24,5 +24,8 @@ Copy `.agents\skills\game-feature-prototype` into `%USERPROFILE%\.agents\skills\
 | `.agents/skills/game-feature-prototype/SKILL.md` | The workflow |
 | `.agents/skills/game-feature-prototype/references/` | Brief template, game context and feature patterns, UI kit, QA checklist, demo script |
 | `.agents/skills/game-feature-prototype/assets/scaffold.html` | Starting template: phone frame, tabs, state, rewards, simulated AI chat, design notes, demo controls |
+| `.agents/skills/frontend-design/` | Anthropic's design-planning skill (Apache-2.0), used in the brief/skeleton phase; explicit-only |
+| `.agents/skills/game-engine/` | GitHub's web game skill (MIT) for an optional Canvas mini-game; explicit-only |
+| `extras/skills/` | 19 vetted backup skills, not auto-loaded; see `extras/README.md` |
 | `examples/codm-rookie-camp/` | A finished sample (CODM new-player first week) for quality reference |
 | `prototype/` | Output folder |
