@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Feature Prototype</title>
+<!--
+  SCAFFOLD for $game-feature-prototype
+  - Copy to prototype/index.html, then edit. Single file, works from file://, no libraries.
+  - Edit in this order: THEME (:root) → CONFIG/DATA → SCREENS (renderers) → ACTIONS → DEMO CONTROLS → DESIGN NOTES.
+  - Everything marked TODO is placeholder content to replace.
+-->
+<style>
+:root{
+  /* THEME — pick a preset from references/ui-kit.md (default: CODM-like) */
+  --bg:#0d1014; --panel:#171c22; --panel-2:#1f262e; --line:#2a333d;
+  --txt:#eef2f6; --mut:#8a96a3; --accent:#f2c230; --accent-2:#5fd38d; --danger:#ff5d5d;
+  --common:#9aa4b2; --rare:#4aa3ff; --epic:#b06cff; --legendary:#ffb21a; --mythic:#ff4d6d;
+  --radius:12px; --font:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:radial-gradient(1200px 600px at 50% -10%,#1b222b 0%,#07090c 60%);color:var(--txt);font-family:var(--font);display:flex;justify-content:center;align-items:center;min-height:100vh;overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0;color:inherit;background:none}
+.num{font-variant-numeric:tabular-nums}
+
+/* ---------- phone frame ---------- */
+.phone{width:390px;height:844px;max-height:96vh;background:var(--bg);border-radius:34px;border:8px solid #000;box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px #2c2c2c;position:relative;overflow:hidden;display:flex;flex-direction:column}
+@media (max-width:500px){.phone{width:100vw;height:100vh;max-height:none;border-radius:0;border:0}}
+
+/* top resource bar */
+.topbar{display:flex;align-items:center;gap:8px;padding:12px 14px 10px;background:linear-gradient(180deg,#000a 0%,transparent 100%);border-bottom:1px solid var(--line)}
+.avatar{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:grid;place-items:center;font-weight:800;color:#111}
+.who{flex:1;min-width:0}
+.who b{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.who small{font-size:10px;color:var(--mut);letter-spacing:.08em}
+.cur{display:flex;align-items:center;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:99px;padding:3px 9px;font-size:12px;font-weight:700}
+.cur i{width:10px;height:10px;border-radius:3px;display:inline-block}
+
+/* content + tabs */
+.content{flex:1;overflow-y:auto;padding:14px;scrollbar-width:none}
+.content::-webkit-scrollbar{display:none}
+.tabs{display:flex;border-top:1px solid var(--line);background:#0008;backdrop-filter:blur(6px)}
+.tabs button{flex:1;padding:9px 0 12px;font-size:11px;color:var(--mut);display:flex;flex-direction:column;align-items:center;gap:3px;position:relative}
+.tabs button svg{width:20px;height:20px}
+.tabs button.on{color:var(--accent)}
+.tabs button.on::before{content:"";position:absolute;top:-1px;left:30%;right:30%;height:2px;background:var(--accent)}
+.dot{position:absolute;top:6px;right:calc(50% - 16px);width:7px;height:7px;border-radius:50%;background:var(--danger)}
+
+/* building blocks */
+.micro{font-size:10px;letter-spacing:.14em;color:var(--mut);text-transform:uppercase;margin-bottom:6px}
+h2{font-size:20px;line-height:1.25;margin-bottom:4px}
+.sub{font-size:12px;color:var(--mut);margin-bottom:12px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px;margin-bottom:10px}
+.row{display:flex;align-items:center;gap:10px}
+.grow{flex:1;min-width:0}
+.btn{padding:9px 14px;border-radius:10px;background:var(--panel-2);border:1px solid var(--line);font-size:13px;font-weight:700;transition:transform .08s}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--accent);color:#111;border-color:transparent;box-shadow:0 6px 18px -6px var(--accent)}
+.btn.block{width:100%;padding:13px;font-size:15px}
+.btn[disabled]{opacity:.4;pointer-events:none}
+.pill{display:inline-block;font-size:10px;font-weight:800;padding:2px 7px;border-radius:99px;background:#ffffff14;color:var(--mut)}
+.pill.rare{color:var(--rare)}.pill.epic{color:var(--epic)}.pill.legendary{color:var(--legendary)}.pill.mythic{color:var(--mythic)}
+.bar{height:8px;background:#ffffff12;border-radius:99px;overflow:hidden}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:99px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.item{aspect-ratio:1;border-radius:10px;background:var(--panel-2);border:1px solid var(--line);display:grid;place-items:center;text-align:center;font-size:10px;position:relative;padding:4px}
+.item b{font-size:16px;display:block}
+.item.locked{opacity:.45}
+.item.done::after{content:"✓";position:absolute;top:3px;right:5px;color:var(--accent-2);font-weight:900}
+.banner{border-radius:var(--radius);padding:16px;margin-bottom:12px;background:linear-gradient(120deg,#2a2208 0%,#151a20 70%);border:1px solid #3a3215;position:relative;overflow:hidden}
+.banner::after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border:2px solid var(--accent);opacity:.25;transform:rotate(45deg)}
+.badge-new{font-size:9px;font-weight:900;color:#111;background:var(--danger);padding:1px 5px;border-radius:4px;margin-left:6px}
+.locked-note{font-size:11px;color:var(--mut)}
+
+/* AI chat */
+.chat{display:flex;flex-direction:column;gap:8px}
+.msg{max-width:85%;padding:9px 11px;border-radius:12px;font-size:13px;line-height:1.5}
+.msg.ai{background:var(--panel-2);border:1px solid var(--line);border-top-left-radius:4px}
+.msg.me{align-self:flex-end;background:var(--accent);color:#111;border-top-right-radius:4px}
+.typing span{display:inline-block;width:6px;height:6px;margin:0 2px;border-radius:50%;background:var(--mut);animation:blink 1s infinite}
+.typing span:nth-child(2){animation-delay:.15s}.typing span:nth-child(3){animation-delay:.3s}
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chips button{font-size:12px;padding:6px 10px;border-radius:99px;border:1px solid var(--line);background:var(--panel)}
+
+/* overlays */
+.toast{position:absolute;left:50%;top:70px;transform:translateX(-50%) translateY(-20px);background:#000d;border:1px solid var(--line);padding:8px 14px;border-radius:99px;font-size:13px;opacity:0;transition:.25s;pointer-events:none;z-index:50;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.overlay{position:absolute;inset:0;background:#000b;display:none;align-items:center;justify-content:center;z-index:40;padding:20px}
+.overlay.show{display:flex}
+.modal{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;width:100%;max-height:80%;overflow:auto;animation:pop .25s cubic-bezier(.2,1.4,.4,1)}
+@keyframes pop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+.reward-title{text-align:center;font-size:22px;font-weight:900;color:var(--accent);letter-spacing:.06em;margin-bottom:12px;text-shadow:0 0 24px var(--accent)}
+.burst{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.burst i{position:absolute;left:50%;top:45%;width:6px;height:14px;background:var(--accent);border-radius:2px;animation:fly 900ms ease-out forwards}
+@keyframes fly{to{transform:translate(var(--x),var(--y)) rotate(var(--r));opacity:0}}
+
+/* side drawers (outside phone on desktop) */
+.fab{position:fixed;right:18px;display:flex;flex-direction:column;gap:8px;z-index:60}
+.fab button{background:#11161ccc;border:1px solid var(--line);color:var(--txt);padding:9px 12px;border-radius:10px;font-size:12px;font-weight:700;backdrop-filter:blur(4px)}
+.drawer{position:fixed;top:0;right:0;width:min(380px,92vw);height:100vh;background:#0f1318;border-left:1px solid var(--line);transform:translateX(100%);transition:.3s;z-index:70;padding:20px;overflow:auto}
+.drawer.show{transform:none}
+.drawer h3{font-size:16px;margin:14px 0 6px;color:var(--accent)}
+.drawer p,.drawer li{font-size:13px;line-height:1.65;color:#cfd6de}
+.drawer ul{padding-left:1.1em}
+.drawer .close{position:absolute;top:14px;right:14px;font-size:20px;color:var(--mut)}
+.drawer .ctrl{display:block;width:100%;text-align:left;margin-bottom:8px}
+</style>
+</head>
+<body>
+
+<div class="phone" id="phone">
+  <div class="topbar">
+    <div class="avatar" id="avatar">Z</div>
+    <div class="who"><b id="pname"></b><small id="plevel"></small></div>
+    <div class="cur num" title="金币"><i style="background:var(--accent)"></i><span id="coins"></span></div>
+    <div class="cur num" title="钻石"><i style="background:var(--rare)"></i><span id="gems"></span></div>
+  </div>
+  <div class="content" id="content"></div>
+  <nav class="tabs" id="tabs"></nav>
+  <div class="toast" id="toast"></div>
+  <div class="overlay" id="overlay"><div class="burst" id="burst"></div><div class="modal" id="modal"></div></div>
+</div>
+
+<div class="fab" style="top:18px">
+  <button onclick="openDrawer('notes')">📋 设计说明</button>
+  <button onclick="openDrawer('demo')">🎮 演示控制</button>
+</div>
+
+<!-- DESIGN NOTES — TODO: fill from BRIEF.md -->
+<aside class="drawer" id="drawer-notes">
+  <button class="close" onclick="closeDrawers()">✕</button>
+  <div class="micro">DESIGN NOTES</div>
+  <h2>TODO 功能名</h2>
+  <h3>玩家问题</h3><p>TODO：谁、在什么场景、遇到什么问题（附数字或"假设"）。</p>
+  <h3>方案</h3><ul><li>TODO 必做交互 1</li><li>TODO 必做交互 2</li><li>TODO 必做交互 3</li></ul>
+  <h3>指标</h3><ul><li>主指标：TODO</li><li>过程指标：TODO</li><li>护栏指标：TODO</li></ul>
+  <h3>AI 设计</h3><p>TODO：本原型为模拟 AI；真实版本的输入数据、提示词思路、安全与公平护栏、成本。</p>
+  <h3>风险与应对</h3><ul><li>TODO</li></ul>
+  <h3>说明</h3><p style="color:var(--mut)">所有数据为模拟数据，用于演示交互。</p>
+</aside>
+
+<aside class="drawer" id="drawer-demo">
+  <button class="close" onclick="closeDrawers()">✕</button>
+  <div class="micro">DEMO CONTROLS</div>
+  <h2>演示控制</h2>
+  <p class="sub">演示时用来跳过等待、模拟事件，保证流程不卡住。</p>
+  <div id="demo-controls"></div>
+</aside>
+
+<script>
+/* ================= CONFIG / DATA (TODO: replace with feature data) ================= */
+const STORE_KEY = 'proto-v1';          // change per prototype so old state doesn't leak
+const TABS = [                          // TODO: 3–5 tabs for the feature
+  {id:'home',  label:'首页',   icon:'home'},
+  {id:'event', label:'活动',   icon:'star'},
+  {id:'coach', label:'AI 教练', icon:'chat'},
+];
+const DEFAULT_STATE = () => ({
+  tab:'home', player:{name:'Zyn.Alpha', level:7, coins:1200, gems:60},
+  day:1, tasks:[                                     // TODO
+    {id:'t1', name:'完成 1 局团队竞技', goal:1, prog:0, reward:{coins:100}},
+    {id:'t2', name:'使用推荐配枪击败 5 名敌人', goal:5, prog:0, reward:{coins:150}},
+    {id:'t3', name:'和好友组队 1 次', goal:1, prog:0, reward:{gems:10}},
+  ],
+  claimed:{}, chat:[{from:'ai', text:'你好！我是你的 AI 教练，只在大厅和赛后给建议，不影响对局公平。'}],
+});
+
+/* ================= STATE ================= */
+let state = load();
+function load(){ try{ return Object.assign(DEFAULT_STATE(), JSON.parse(localStorage.getItem(STORE_KEY))||{}); }catch(e){ return DEFAULT_STATE(); } }
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+function set(patch){ Object.assign(state, patch); save(); render(); }
+function resetAll(){ try{ localStorage.removeItem(STORE_KEY); }catch(e){} state = DEFAULT_STATE(); render(); toast('已重置为新玩家状态'); }
+
+/* ================= HELPERS ================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fmt = n => Number(n).toLocaleString('en-US');
+const pct = (a,b) => Math.max(0, Math.min(100, Math.round(a/b*100)));
+const rand = (a,b) => Math.floor(Math.random()*(b-a+1))+a;
+const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+function toast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),1800); }
+function openModal(html){ $('#modal').innerHTML=html; $('#overlay').classList.add('show'); }
+function closeModal(){ $('#overlay').classList.remove('show'); $('#burst').innerHTML=''; }
+$('#overlay').addEventListener('click', e => { if(e.target.id==='overlay') closeModal(); });
+function burst(n=36){ const b=$('#burst'); b.innerHTML=''; for(let i=0;i<n;i++){ const s=document.createElement('i'); const a=Math.random()*Math.PI*2, d=rand(90,220); s.style.setProperty('--x',Math.cos(a)*d+'px'); s.style.setProperty('--y',Math.sin(a)*d+'px'); s.style.setProperty('--r',rand(0,720)+'deg'); s.style.background=pick(['var(--accent)','var(--accent-2)','var(--rare)','#fff']); s.style.animationDelay=(Math.random()*120)+'ms'; b.appendChild(s);} }
+function rewardPopup(items, title='获得奖励'){ // items: [{name, qty, rarity}]
+  burst();
+  openModal(`<div class="reward-title">${esc(title)}</div>
+    <div class="grid" style="grid-template-columns:repeat(${Math.min(items.length,3)},1fr)">
+    ${items.map(it=>`<div class="item"><div><b class="num">×${fmt(it.qty||1)}</b>${esc(it.name)}<br><span class="pill ${it.rarity||''}">${esc(it.rarity||'common')}</span></div></div>`).join('')}
+    </div><button class="btn primary block" style="margin-top:14px" onclick="closeModal()">收下</button>`);
+}
+function countUp(el, to, ms=600){ const from=Number(el.dataset.v||0); const t0=performance.now(); el.dataset.v=to; (function step(t){ const k=Math.min(1,(t-t0)/ms); el.textContent=fmt(Math.round(from+(to-from)*k)); if(k<1) requestAnimationFrame(step); })(t0); }
+function countdown(sec){ const h=String(Math.floor(sec/3600)).padStart(2,'0'), m=String(Math.floor(sec%3600/60)).padStart(2,'0'), s=String(sec%60).padStart(2,'0'); return `${h}:${m}:${s}`; }
+const ICONS = {
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
+  star:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>',
+  chat:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 10h8M8 13h5"/></svg>',
+  user:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg>',
+  trophy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 4h8v5a4 4 0 0 1-8 0zM5 5H3v2a3 3 0 0 0 3 3M19 5h2v2a3 3 0 0 1-3 3M10 14h4v3h-4zM8 20h8"/></svg>',
+  users:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.3-5 6.5-5s5.7 1.5 6.5 5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.5c2.8 0 4.7 1.3 5.5 4.5"/></svg>',
+};
+
+/* ================= ACTIONS (TODO: feature logic) ================= */
+function go(tab){ set({tab}); $('#content').scrollTop=0; }
+function addReward(r){ const p=state.player; if(r.coins) p.coins+=r.coins; if(r.gems) p.gems+=r.gems; save(); }
+function progressTask(id, n=1){ const t=state.tasks.find(x=>x.id===id); if(!t) return; t.prog=Math.min(t.goal,t.prog+n); save(); render(); if(t.prog===t.goal) toast(`任务完成：${t.name}`); }
+function claimTask(id){
+  const t=state.tasks.find(x=>x.id===id); if(!t||t.prog<t.goal||state.claimed[id]) return;
+  state.claimed[id]=true; addReward(t.reward);
+  rewardPopup(Object.entries(t.reward).map(([k,v])=>({name:k==='coins'?'金币':'钻石', qty:v, rarity:k==='gems'?'rare':''})));
+  render();
+}
+
+/* Simulated AI — rule-based, driven by player state. Replace rules with feature-specific ones. */
+const AI_RULES = [
+  {match:/配枪|枪|loadout/i, reply:()=>`根据你最近 5 局近距离击杀占 70%，推荐冲锋枪 + 快速瞄准配件：开镜速度更快，适合你的打法。`},
+  {match:/输|连败|打不过/i,  reply:()=>`别灰心！你最近的死亡大多发生在侧面被绕后。下局试试多看小地图，并跟着队友推进。`},
+  {match:/模式|玩什么/i,     reply:()=>`你现在最适合「团队竞技」：节奏快、复活快，适合练枪。完成 3 局后再解锁「据点争夺」。`},
+];
+function aiReply(text){ const r=AI_RULES.find(x=>x.match.test(text)); return r ? r.reply() : '我主要能帮你：推荐配枪、复盘上一局、建议下一步玩什么。试试点下面的问题吧！'; }
+function sendChat(text){
+  if(!text.trim()) return;
+  state.chat.push({from:'me', text}); state.chat.push({from:'ai', typing:true}); save(); render();
+  setTimeout(()=>{ state.chat.pop(); state.chat.push({from:'ai', text:aiReply(text)}); save(); render(); }, 900);
+}
+
+/* ================= SCREENS (TODO: replace with feature screens) ================= */
+const SCREENS = {
+  home(){
+    const done=state.tasks.filter(t=>t.prog>=t.goal).length;
+    return `
+      <div class="banner"><div class="micro">SEASON 10 · DAY ${state.day}</div><h2>TODO 活动主视觉标题</h2>
+        <div class="sub" style="margin:0">TODO 一句话说明玩家能得到什么</div></div>
+      <div class="card"><div class="row"><div class="grow"><b>今日任务</b><div class="sub" style="margin:0">${done}/${state.tasks.length} 已完成</div></div>
+        <span class="pill legendary">DAY ${state.day}</span></div>
+        <div class="bar" style="margin-top:8px"><i style="width:${pct(done,state.tasks.length)}%"></i></div></div>
+      ${state.tasks.map(t=>{ const ok=t.prog>=t.goal, got=state.claimed[t.id]; return `
+        <div class="card row"><div class="grow"><b style="font-size:14px">${esc(t.name)}</b>
+          <div class="bar" style="margin:6px 0 4px"><i style="width:${pct(t.prog,t.goal)}%"></i></div>
+          <span class="sub num">${t.prog}/${t.goal} · 奖励 ${t.reward.coins?fmt(t.reward.coins)+' 金币':''}${t.reward.gems?t.reward.gems+' 钻石':''}</span></div>
+          ${got?'<span class="pill">已领取</span>': ok?`<button class="btn primary" onclick="claimTask('${t.id}')">领取</button>`:`<button class="btn" onclick="progressTask('${t.id}')">前往</button>`}
+        </div>`; }).join('')}`;
+  },
+  event(){
+    return `<div class="micro">EVENT</div><h2>TODO 活动页</h2><p class="sub">把核心机制放在这里。</p>
+      <div class="grid">${Array.from({length:8},(_,i)=>{ const d=i+1; const cls=d<state.day?'done':d>state.day?'locked':''; const txt=d<state.day?'已完成':d===state.day?'今天':'🔒'; return `<div class="item ${cls}"><div><b>D${d}</b>${txt}</div></div>`; }).join('')}</div>`;
+  },
+  coach(){
+    return `<div class="micro">AI COACH · 只在大厅和赛后使用</div><h2>AI 教练</h2>
+      <div class="chat">${state.chat.map(m=> m.typing? '<div class="msg ai typing"><span></span><span></span><span></span></div>' : `<div class="msg ${m.from}">${esc(m.text)}</div>`).join('')}</div>
+      <div class="chips">${['推荐配枪','我总是连败','现在该玩什么模式'].map(q=>`<button onclick="sendChat('${q}')">${q}</button>`).join('')}</div>
+      <div class="row" style="margin-top:10px"><input id="chatIn" class="grow" placeholder="问问教练…" style="background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px;color:var(--txt);font:inherit" onkeydown="if(event.key==='Enter'){sendChat(this.value);this.value=''}">
+      <button class="btn primary" onclick="const i=$('#chatIn');sendChat(i.value);i.value=''">发送</button></div>`;
+  },
+};
+
+/* ================= RENDER ================= */
+function render(){
+  const p=state.player;
+  $('#pname').textContent=p.name; $('#plevel').textContent=`LV.${p.level} · 新兵`; $('#avatar').textContent=p.name[0];
+  countUp($('#coins'), p.coins); countUp($('#gems'), p.gems);
+  $('#tabs').innerHTML=TABS.map(t=>`<button class="${state.tab===t.id?'on':''}" onclick="go('${t.id}')">${ICONS[t.icon]||''}${t.label}</button>`).join('');
+  $('#content').innerHTML=(SCREENS[state.tab]||SCREENS.home)();
+  const ch=$('#content .chat'); if(ch) $('#content').scrollTop=$('#content').scrollHeight;
+}
+
+/* ================= DRAWERS + DEMO CONTROLS ================= */
+function openDrawer(k){ closeDrawers(); $('#drawer-'+k).classList.add('show'); }
+function closeDrawers(){ document.querySelectorAll('.drawer').forEach(d=>d.classList.remove('show')); }
+const demo = { addControl(label, fn){ const b=document.createElement('button'); b.className='btn ctrl'; b.textContent=label; b.onclick=()=>{ fn(); toast('演示：'+label); }; $('#demo-controls').appendChild(b); } };
+/* TODO: add feature-specific controls */
+demo.addControl('↺ 重置为新玩家', resetAll);
+demo.addControl('⏩ 跳到下一天', ()=>set({day:Math.min(7,state.day+1)}));
+demo.addControl('✅ 完成全部任务', ()=>{ state.tasks.forEach(t=>t.prog=t.goal); save(); render(); });
+demo.addControl('🎁 测试奖励弹窗', ()=>rewardPopup([{name:'传说皮肤',qty:1,rarity:'legendary'},{name:'金币',qty:500},{name:'钻石',qty:20,rarity:'rare'}],'恭喜获得'));
+
+render();
+</script>
+</body>
+</html>

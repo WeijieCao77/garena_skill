@@ -1,0 +1,4 @@
+interface:
+  display_name: "Game Feature Prototype"
+  short_description: "Time-boxed single-file HTML prototype of a game feature: brief, build, QA, demo"
+  default_prompt: "Use $game-feature-prototype. The task is below. Start with the brief, then build prototype/index.html from the scaffold."
