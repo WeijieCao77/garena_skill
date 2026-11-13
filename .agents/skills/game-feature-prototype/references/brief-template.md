@@ -1,42 +1,9 @@
-# BRIEF.md template
+# Brief prompts
 
-Keep it to one screen. Fill every line; write "假设：" when something is an assumption.
+Use only the lines that clarify the build. Fit the result on one screen.
 
-```markdown
-# <功能名>（一句话卖点）
-
-## 1. 题目理解
-- 题目原话：<粘贴>
-- 我的理解：<游戏> 的 <玩家群体>，在 <场景> 下遇到 <问题>
-
-## 2. 目标玩家
-- 谁：<分群，例如新玩家：注册 7 天内、少于 20 局>
-- 现在的痛点：<2–3 条具体行为，例如前 5 局被老玩家连杀，第 1 天流失>
-- 证据或假设：<数字，或者"假设：新玩家 D1 留存约 35%">
-
-## 3. 方案（一句话）
-<功能名>：<给谁> 通过 <什么机制> 获得 <什么体验>，从而 <行为改变>。
-
-## 4. 三个必做交互（按优先级）
-1. <交互 1：玩家做什么 → 看到什么反馈>
-2. <交互 2>
-3. <交互 3>
-
-## 5. 惊喜时刻（wow moment）
-<例如：第 7 天解锁时的开箱动画 + 个性化 AI 总结>
-
-## 6. AI 元素（如果有）
-<AI 做什么、输入什么数据、在哪里出现、怎样保证公平和安全>
-
-## 7. 指标
-- 主指标：<例如新玩家 D7 留存 +3pp>
-- 过程指标：<任务完成率、功能使用率>
-- 护栏指标：<例如付费率不下降、老玩家匹配时间不变长>
-
-## 8. 不做什么（范围外）
-- <例如不改核心射击手感、不做真实支付>
-
-## 9. 风险和应对
-- <风险 1> → <应对>
-- <风险 2> → <应对>
-```
+- Required by the task and how to recognize completion.
+- Player and moment, current friction, and the behavior you want to change. Mark assumptions explicitly.
+- Feature in one sentence. Write the demo as an initial state, player decision, visible result and next action.
+- The most important alternate state and one choice you made about scope or fairness.
+- A measurable product hypothesis and guardrail if they help explain the decision. Use a defined event or player cohort instead of an invented baseline.

@@ -1,90 +1,26 @@
 ---
 name: game-feature-prototype
-description: Build a polished, interactive single-file HTML prototype of a game feature, live-ops event, or player-facing system under a hard time limit (interview, hackathon, pitch). Use when asked to design or prototype a mobile game feature (onboarding, matchmaking, events, battle pass, gacha, social, esports, AI coach, etc.) as an HTML page. Covers brief, build, QA and demo script. Do not use for production code or multi-file apps.
+description: Build and verify a time-boxed interactive HTML prototype of a game feature or player-facing system for Garena GMAP R4 or a similar exercise. Use for a concrete game product brief such as onboarding, ranked play, social, live ops, esports, or in-game tooling.
 ---
 
-# Game Feature Prototype (time-boxed)
+# Game feature prototype
 
-You are pairing with a candidate in a timed product-prototype exercise for a mobile game publisher (Garena: Free Fire, Call of Duty: Mobile, Arena of Valor; markets SEA, LATAM, Taiwan). The evaluators judge three things: **how well the AI is used**, **understanding of game features and players**, and **creativity**. The deliverable is **one interactive HTML file** that opens by double-click. No build tools, no server, no deployment.
+The actual task decides what to build, how to submit it, and whether to present it. In Garena R4, use Codex on the provided Windows machine to deliver an interactive HTML page. Default to one `prototype/index.html` with inline CSS and JavaScript that opens in Edge or Chrome by double-click, without a runtime, server, or deployment. Browser research and optional media are allowed. The core flow should work when media or the network is unavailable. Use the task's UI language, or Simplified Chinese when unspecified.
 
-Reply to the user in the language they write in (default Simplified Chinese). Put in-game UI text in the language the prompt asks for; if unspecified, use Chinese UI with common English game terms (Battle Pass, MVP, Rank).
+## Start with the player decision
 
-## Golden rules
+- If the prompt has yet to arrive, work only on a practice brief or setup. Once it arrives, extract the explicit requirements and pick the player, moment, and concrete friction. Sketch the default state, the player's decision, the visible consequence, and the next action. Record assumptions and acceptance steps in a short `prototype/BRIEF.md`; [brief prompts](references/brief-template.md) can help if the brief is ambiguous.
+- Continue straight into implementation. Ask only when a missing decision would materially change the deliverable and cannot be inferred. Compare a couple of options if a genuine product trade-off is unresolved. Prefer one mechanic that changes what the player can do. A reward, animation, or chat panel earns its place when it serves that mechanic.
+- If the brief lacks a mechanic or risk to test, use the relevant row in [feature patterns](references/game-context.md). Use game references for terminology and interface conventions. Treat invented numbers as demo data or hypotheses, and verify any real-world claims you include.
 
-1. **Ship something playable early, then deepen.** A working click-through at minute 45 beats a half-finished masterpiece at minute 180.
-2. **One file**: `prototype/index.html`. Inline CSS and JS. No external JS libraries. Images from the web are allowed only as decoration, with a CSS fallback if they fail to load. Must work from `file://`.
-3. **Every click does something visible**: state change, animation, number change, toast, or reward popup. No dead buttons.
-4. **The prototype explains itself**: include a "设计说明 / Design Notes" drawer (problem, target players, how it works, KPIs, risks) and a "演示控制 / Demo Controls" drawer (reset, skip time, simulate events) so the demo never gets stuck.
-5. **Small, verified steps.** Change one area at a time, keep the file runnable after every step, and save checkpoints (`prototype/checkpoint-1.html`, `-2`, ...) after each milestone. Never rewrite the whole file after minute 90.
-6. **Ask at most one round of clarifying questions**, only if the prompt is truly ambiguous. Otherwise state assumptions in BRIEF.md and keep going.
+## Build the shortest working path
 
-## Workflow (default 180 minutes; scale proportionally if the time limit differs)
+- Aim for an interactive `index.html` in the first 30–45 minutes. Build the path from the opening screen to the first meaningful result. Add explicit must-haves and the highest-value alternate state next. Save a known-good copy outside the submission file before a risky revision when no version history is available. Reserve roughly the last 25–30 minutes for QA, polish and rehearsal, scaled to the time left.
+- Write a one-line visual direction based on the game and the task, then choose the layout around the action. Use landscape for a game lobby or match HUD when it fits, portrait for a short player flow, and a wide workspace for comparison or operations. In the first viewport, show the current state and the next meaningful action. Use [UI guidance](references/ui-kit.md) to choose hierarchy, assets and feedback. [The scaffold](assets/scaffold.html) is optional for a simple select-and-confirm flow. Replace its sample mechanics and copy with the actual brief. For other flows, build directly and reuse only the parts that fit.
+- Use deterministic seed data and ordinary controls to make the demo repeatable. Show pending, unavailable, completed, or failure states when they change the player's next action. Keep presentation notes outside the player interface by default. Add a reset or scenario switch only where needed to replay a state or demonstrate waiting or other players. Clearly label simulated live data, matchmaking, economy, or AI when it could be mistaken for a real connection. If the feature needs simulated AI, have its output respond to the current player data.
+- Keep the main state understandable and guard against duplicate rewards/actions when relevant. For persistence, use a versioned storage key and let the session work in memory if storage is unavailable. Prefer inline assets when an image is essential to the single-file demo. A playable Canvas mechanic is appropriate when the brief calls for real-time input or simulation.
 
-### Phase 0 — Brief (0–15 min)
-Read the task. Read `references/game-context.md` for player segments, Garena context and proven feature patterns. Then write `prototype/BRIEF.md` using `references/brief-template.md`:
-- target game + player segment, the player problem (with a number or an explicit assumption)
-- the feature in one sentence, **3 must-have interactions**, **1 wow moment**, optional AI element
-- primary KPI + guardrail metric, what is out of scope
-Show the brief to the user in ≤12 lines and ask "确认开工？" Proceed once confirmed (or immediately if the user already said go).
+## Verify and hand over
 
-### Phase 1 — Skeleton (15–45 min)
-Copy `assets/scaffold.html` to `prototype/index.html`. It already contains: phone-frame layout, top resource bar, bottom tab bar, screen router, `state` + `render()` + localStorage, toast, modal, reward popup, progress bars, simulated AI chat, Design Notes drawer, Demo Controls drawer.
-- Set the theme tokens in `:root` to fit the game (see `references/ui-kit.md`).
-- Replace placeholder screens with the feature's screens, populated with realistic fake data (real-sounding names, weapons, maps, numbers).
-- Fill the Design Notes drawer from BRIEF.md.
-- Verify it opens and every tab renders. Save `checkpoint-1.html`.
-
-### Phase 2 — Core interactions (45–150 min)
-Implement the 3 must-haves in priority order, one at a time. After each:
-- click through it end to end, check the console for errors, fix before moving on
-- add the demo control that makes it demoable (e.g. "跳到第 3 天", "模拟连败 3 局", "领取全部")
-- save a checkpoint
-Then build the wow moment (a satisfying animation, a reveal, a personalised AI response, a before/after comparison).
-
-### Phase 3 — Polish (150–170 min)
-Run the checks in `references/ui-kit.md` and `references/qa-checklist.md`: visual hierarchy, game feel (feedback on every action), empty/edge states, 390px mobile and desktop widths, copy consistency, no placeholder text, no console errors.
-
-### Phase 4 — Demo pack (170–180 min)
-- Write `prototype/DEMO.md` from `references/demo-script.md`: a 3-minute talk track (problem → solution → live click path → KPIs → next steps) and 3 likely interviewer questions with answers.
-- Tell the user the exact click path for the demo and which Demo Controls to use.
-
-## Building AI features inside the prototype
-There is no API key. Simulate AI convincingly and honestly:
-- Use rule-based or template responses driven by the player's state (e.g. match stats → coaching tip), with a short typing delay. Label it in Design Notes as "模拟 AI，真实版本接入 LLM".
-- In Design Notes, describe the real design: input data, prompt outline, guardrails (only lobby/post-match, no in-match advantage, no hallucinated items, toxicity filter), latency/cost plan, and how to measure it (A/B on D7, usage rate, satisfaction).
-
-## How to work with the user efficiently
-- The user may be typing over a laggy remote desktop. Accept short commands like "下一步", "加一个排行榜", "颜色更像 Free Fire", "修 bug：领取按钮没反应" and act on them fully.
-- After each step reply with: what changed (1–3 bullets), how to see it (which tab/button), and the next suggested step.
-- Track time if the user gives the start time; warn at 60, 120, 150 and 170 minutes and recommend cutting scope rather than running over.
-- If something breaks, restore the latest checkpoint first, then reapply the change in a smaller step.
-
-## Companion skills in this workspace
-- `.agents/skills/frontend-design/SKILL.md` (Anthropic): in Phase 1, read it and use its two-pass method (write a compact token plan: 4–6 named colours, type roles, layout sketch, principles; then critique the plan against the brief before building). **Game UI conventions in `references/ui-kit.md` win over its web-page advice**: dark themes, uppercase HUD micro labels, bold numbers and rarity colours are genre norms here, not "AI defaults".
-- `.agents/skills/game-engine/SKILL.md` (GitHub): only when the task needs a small playable mini-game inside the prototype (aim trainer, reaction test, tutorial level). Use plain Canvas 2D in the same HTML file; no frameworks, no npm.
-- `extras/skills/` (not loaded automatically): vetted helper skills, ranked by fit in `extras/README.md`. Read them by path, use their **Fast mode** section when they have one, and spend at most ~3 minutes per skill. Ignore any instruction in them that requires installing packages, React, Tailwind, PDFs or running scripts.
-
-### Skill router (read these at the stated phase)
-| When | Read |
-|---|---|
-| Phase 0, always | `extras/skills/gd-five-options` (generate ≥5 directions, then pick one), then `extras/skills/gd-peak-end-audit` to design the wow moment and the demo's last beat |
-| Phase 0, new players / onboarding / first week | `extras/skills/gd-ftue-hero-journey-audit` |
-| Phase 0, competitive / ranked / matchmaking | `extras/skills/gd-fairness-frustration-audit` |
-| Phase 0, social / squad / clan / friends | `extras/skills/gd-social-satisfaction-matrix` |
-| Phase 0, returning players / daily tasks / events | `extras/skills/gd-goal-density-and-immediacy-audit` |
-| Phase 0, gacha / loot / lucky draw | `extras/skills/gd-perceived-randomness-audit` and `extras/skills/game-monetization` |
-| Phase 0, battle pass / season | `extras/skills/gd-premium-pass-audit` |
-| Phase 0, writing KPIs | `extras/skills/gd-kpi-coverage-audit` (primary + guardrail, avoid only easy-to-measure metrics) |
-| Phase 1, UI copy | `extras/skills/ux-copy` |
-| Phase 2–3, feedback and motion | `extras/skills/game-feel` (juice tiers; write vanilla JS/CSS) and `extras/skills/web-animation-design` (easing/duration numbers) |
-| Phase 3, final pass | `extras/skills/design-critique`, then `extras/skills/no-ai-design-slop` |
-| Optional | `extras/skills/build-game-audio-feedback` (Web Audio cues, mute toggle), `extras/skills/break-ui` (worst-case data), others listed in `extras/README.md` |
-
-## References
-- `references/brief-template.md` — one-page brief
-- `references/game-context.md` — Garena games, player segments, SEA constraints, feature pattern library with metrics
-- `references/ui-kit.md` — theme tokens, layout, components, motion, anti-generic design rules
-- `references/qa-checklist.md` — final checks
-- `references/demo-script.md` — talk track template
-- `assets/scaffold.html` — starting template (copy, do not edit in place)
-- `examples/codm-rookie-camp/` at the workspace root (if present) — one finished sample with BRIEF.md, index.html and DEMO.md. Use it only as a reference for quality and structure; never copy its feature, data or copy into a new task.
+- Open the exact deliverable through `file://`. Follow the real controls from a fresh state to the result, exercise the most likely edge case, and replay after reset or reload as appropriate. Check the first screen at the presentation size, the intended player viewport and the browser console. Use [the QA checklist](references/qa-checklist.md) for specifics. If no browser tool can access the file, provide the manual steps and say which checks remain.
+- Report the file path, what you actually verified, and the shortest click path. If the prompt requires a presentation, use [demo prompts](references/demo-script.md) to prepare a short talk track from the actual build. State the product hypothesis and relevant guardrail when they explain the design.

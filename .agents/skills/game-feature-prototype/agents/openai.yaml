@@ -1,4 +1,4 @@
 interface:
   display_name: "Game Feature Prototype"
-  short_description: "Time-boxed single-file HTML prototype of a game feature: brief, build, QA, demo"
-  default_prompt: "Use $game-feature-prototype. The task is below. Start with the brief, then build prototype/index.html from the scaffold."
+  short_description: "Build and verify a timed HTML game feature prototype"
+  default_prompt: "用 $game-feature-prototype 完成下面的题目，简写方案后直接做出可点击的 HTML 主流程。"

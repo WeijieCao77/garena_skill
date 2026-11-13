@@ -1,28 +1,6 @@
-# QA checklist (run before demo, and after each milestone)
+# Check the delivered HTML
 
-## Opens and runs
-- [ ] `prototype/index.html` opens by double-click (file://), no server needed
-- [ ] No errors in the browser console (F12 → Console)
-- [ ] Reset (Demo Controls) returns to a clean first-time state; refresh keeps progress
-
-## Every must-have works end to end
-- [ ] Interaction 1: click path works from start to finish
-- [ ] Interaction 2
-- [ ] Interaction 3
-- [ ] Wow moment triggers reliably (has a Demo Control shortcut)
-- [ ] No dead buttons: every button gives visible feedback
-
-## Looks like a game
-- [ ] Theme tokens fit the game; one clear primary action per screen
-- [ ] Realistic fake data (names, weapons, maps, numbers); no placeholder text
-- [ ] Locked / empty / completed states exist where relevant
-- [ ] Works at 390px wide and on desktop (phone frame centred)
-
-## Explains itself
-- [ ] Design Notes drawer: problem, target players, how it works, KPIs (primary + guardrail), risks, AI design (if any)
-- [ ] Labels simulated data and simulated AI honestly
-- [ ] BRIEF.md and DEMO.md exist and match what was built
-
-## Safety net
-- [ ] Latest checkpoint saved (`prototype/checkpoint-N.html`)
-- [ ] If time is short: cut scope, never leave a broken screen in the demo path
+- Open `prototype/index.html` from Windows Explorer or run `Start-Process .\prototype\index.html` in PowerShell. Check that the URL starts with `file://`. If a browser tool is available, use it to inspect the actual render and console. Otherwise follow the same steps in Edge or Chrome and check F12 → Console.
+- From the starting state, use the same visible controls a reviewer will use. Check each task requirement, the state change after the main action, and a relevant blocked or empty state. Try a rapid repeat when there is a reward, spend or submission. Ensure reset or reload gives the intended state and that pending timers cannot overwrite a reset.
+- Check the first viewport at desktop presentation size and the intended game viewport. Look for clipping, unreadable text, hidden actions, focus visibility, and misleading or inactive controls. Keyboard-check the main path and any dialog. If the screen relies on media, verify the main path still works when that media cannot load.
+- Replay the exact path once more after the last edit. Record what was actually observed and provide manual steps for checks you could not run.

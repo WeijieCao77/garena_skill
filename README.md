@@ -1,31 +1,33 @@
-# garena_skill
+# Garena GMAP R4 · Codex 原型 Skill
 
-A Codex workspace with one skill, `game-feature-prototype`, for building an interactive single-file HTML prototype of a mobile game feature in about 3 hours (brief → skeleton → core interactions → polish → demo).
+`$game-feature-prototype` 用于限时游戏功能原型。从玩家的一次具体决策出发，先做可点击的 HTML 主流程，再补关键边界、视觉与演示。默认交付为 `prototype/index.html`，可双击打开。具体题目决定提交和讲解要求。
 
-## Quick start (Windows)
-1. On this page click **Code → Download ZIP**, then unzip it (for example to `Desktop\garena_skill-main`).
-   - Or with git: `git clone https://github.com/WeijieCao77/garena_skill.git`
-2. Open the unzipped folder in Codex:
-   - Codex app: open the folder as the project.
-   - Codex CLI: `cd` into the folder and run `codex`.
-3. Check the skill is loaded: type `$` or `/skills` and look for `game-feature-prototype`.
-4. Paste the task and say: `用 $game-feature-prototype 做这道题，先写 BRIEF。`
+## Windows 现场用法
 
-Codex reads skills from `.agents/skills` in the current folder, so no install step is needed.
-Note: `.agents` starts with a dot and may be hidden in File Explorer (View → Show → Hidden items).
+1. 在 [GitHub 仓库](https://github.com/WeijieCao77/garena_skill) 的 `main` 分支点 **Code → Download ZIP**，用 Windows 的 **全部解压缩** 解压。打开公司提供的 Codex，选择包含 `AGENTS.md` 和 `.agents` 的项目目录（通常是 `garena_skill-main`）。
+2. 在 Codex 输入 `$` 查找 `game-feature-prototype`。如果找不到，先确认项目目录，再新开会话或重启 Codex。CLI 也可用 `/skills` 查看。必要时可把完整的 `.agents\skills\game-feature-prototype` 文件夹复制到 `%USERPROFILE%\.agents\skills\`。
+3. 粘贴完整题目和下列指令。主 skill 可独立使用，所需的参考文件都在它自己的目录里。
 
-## Fallback: install as a personal skill
-Copy `.agents\skills\game-feature-prototype` into `%USERPROFILE%\.agents\skills\` (or `%USERPROFILE%\.codex\skills\`) and restart Codex.
+   > 用 $game-feature-prototype 完成下面的题目。按题目要求交付。先给出简短方案和验收路径，然后直接做出可点击的主流程。完成后打开实际 HTML，验证主流程和一个关键边界状态。
 
-## Contents
-| Path | What |
-|---|---|
-| `AGENTS.md` | Workspace rules for Codex (reply in Chinese, single HTML output, checkpoints) |
-| `.agents/skills/game-feature-prototype/SKILL.md` | The workflow |
-| `.agents/skills/game-feature-prototype/references/` | Brief template, game context and feature patterns, UI kit, QA checklist, demo script |
-| `.agents/skills/game-feature-prototype/assets/scaffold.html` | Starting template: phone frame, tabs, state, rewards, simulated AI chat, design notes, demo controls |
-| `.agents/skills/frontend-design/` | Anthropic's design-planning skill (Apache-2.0), used in the brief/skeleton phase; explicit-only |
-| `.agents/skills/game-engine/` | GitHub's web game skill (MIT) for an optional Canvas mini-game; explicit-only |
-| `extras/skills/` | 40 vetted helper skills ranked by fit (game design audits, UX copy, motion, game feel, QA), not auto-loaded; the main skill reads them at the right phase; see `extras/README.md` |
-| `examples/codm-rookie-camp/` | A finished sample (CODM new-player first week) for quality reference |
-| `prototype/` | Output folder |
+4. 若现场无法发现 skill，直接让 Codex 读取 `.agents/skills/game-feature-prototype/SKILL.md` 并按它执行，再贴题目。若 ZIP 无法下载但浏览器能访问文件，直接复制 `SKILL.md` 正文进 Codex。正文足以启动，参考文件可按需补充。
+5. 在资源管理器双击 `prototype\index.html`，或在 PowerShell 运行 `Start-Process .\prototype\index.html`。用实际的玩家控件走一遍，再按题目要求提交。
+
+Codex 的项目和用户 skill 路径见 [OpenAI 官方文档](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills)。
+
+## 仓库内容
+
+| 路径 | 用途 |
+| --- | --- |
+| `.agents/skills/game-feature-prototype/` | 主 skill、题型速查、UI 指南、验收和演示提示。`assets/scaffold.html` 是可直接打开的组队样例，可复用单步选择流程的骨架。 |
+| `examples/codm-rookie-camp/` | 原有 CODM 新兵训练营样例。可对照较完整的演示规模。 |
+| `.agents/skills/frontend-design/`、`.agents/skills/game-engine/` | 手动调用的外部参考，分别用于扩展设计探索和真正的小游戏。 |
+| `extras/` | 赛前练习或定向复盘用的可选参考。 |
+| `prototype/` | 现场原型输出目录。 |
+
+## 赛前盲练
+
+任选一道没做过的题。用同一题开两个空白会话，分别只贴题目、贴题目并调用 skill。对照首次可点击所需时间、必做项通过数、关键边界是否可演示，以及首屏能否一眼找到主操作。再用另一题复测，把两次顺序对调。
+
+- 排位题：设计一个横屏赛后界面。玩家能比较两条复盘建议，选择下一局练习目标，并看到目标已生效。演示本局数据不足的状态。
+- 社交题：设计一个可按语言和目标找队友的组队功能。玩家能找到合适队伍、发起请求并看到结果。演示目标房间刚刚满员的状态。

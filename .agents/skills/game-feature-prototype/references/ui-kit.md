@@ -1,48 +1,21 @@
-# UI kit for game feature prototypes
+# UI for a game feature prototype
 
-Goal: it should look like a screen from a real mobile shooter / MOBA, not a SaaS dashboard.
+Write one sentence about the game, the screen's job, and its visual character. For example, a ranked results screen should resemble a broadcast score sheet and put the next choice beside the result. A social lobby should make availability and the reason to join easy to scan. Follow the task's reference when provided. If the brief names an existing title, inspect the closest actual screen and borrow its interaction conventions, type scale and status language.
 
-## Layout
-- **Phone frame first**: the scaffold renders a 390×844 phone frame centred on desktop, with the Design Notes and Demo Controls drawers outside/over it. On screens narrower than 500px the frame becomes full-screen.
-- Top **resource bar** (avatar, level, currencies), main content, bottom **tab bar** (3–5 tabs). Modals and reward popups overlay the frame.
-- One primary action per screen, visually dominant (large, bright, bottom-reachable).
+| Surface | Start with | Make visible before the first click |
+| --- | --- | --- |
+| Landscape lobby or match feature | Scene, roster or play area with an attached action panel | Party or match status, objective, and the primary action |
+| Portrait event or progression | A route, reward track, or ordered list that follows the mechanic | Current step, reward or unlock condition, and next action |
+| Social or competitive selection | A list, roster or comparison with a focused detail area | What distinguishes the options and what the action commits to |
+| Operations tool | A working view with data and controls | What requires attention, what can be filtered or decided |
 
-## Theme tokens (edit `:root` in the scaffold)
-Pick one preset and adjust; keep contrast high on dark backgrounds.
-| Preset | --bg | --panel | --accent | --accent-2 | Mood |
-|---|---|---|---|---|---|
-| Free Fire | #14100c | #231b14 | #ffb21a (gold) | #ff5a1f (orange) | warm, energetic, collab-heavy |
-| CODM | #0d1014 | #171c22 | #f2c230 (tactical yellow) | #5fd38d (HUD green) | military, sharp, HUD lines |
-| Arena of Valor | #0c1022 | #161c38 | #6ea8ff (arcane blue) | #ffd36e (gold) | fantasy, ornate |
-| Esports | #0b0b12 | #15151f | #ff4655 (red) | #20e3c2 (cyan) | broadcast, bold numbers |
-Rarity colours: common #9aa4b2, rare #4aa3ff, epic #b06cff, legendary #ffb21a, mythic #ff4d6d.
+- Compose one dominant working area. Use alignment, size and spacing to organize the rest. Put borders, cards, badges, meters and navigation where they convey a distinct role or state. Use a system font stack and reserve strong color for the primary action and meaningful states. Keep status legible without color alone.
+- Use a relevant screenshot, item, map or character asset when it helps players recognize the context or choose. Put captions and controls in HTML. Keep text readable over imagery. If the permitted browser, asset, or generation tool is unavailable, use a clear typographic layout or simple diagram for the mechanic.
+- Use native controls with clear labels, visible keyboard focus and generous targets. For overlays, prefer a native dialog with a close control, Escape handling and focus return. Review zoom and mobile width so critical text and controls stay usable.
+- Couple feedback to the action. A changed status or progress label should tell the player what happened and what comes next. Use one short emphasis on the highest-value transition when it helps comprehension. Honor `prefers-reduced-motion` and keep meaning available without animation.
+- Review an actual render. At first glance, the player should know where they are, what state they're in, and what action to take. Cut navigation and copy that don't help those decisions.
 
-## Typography
-- System font stack (works offline): `"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif`.
-- Numbers big and bold (rewards, timers, ranks); labels small and muted. Use `font-variant-numeric: tabular-nums` for counters.
-- Uppercase letter-spaced micro labels for HUD feel (e.g. `SEASON 10 · DAY 3`).
+Design references behind this guidance
 
-## Components in the scaffold (reuse, don't reinvent)
-`.card`, `.btn` / `.btn.primary` / `.btn.ghost`, `.pill` (rarity tags), `.bar` progress bars, `.grid` reward grids, `toast(msg)`, `openModal(html)`, `rewardPopup(items)`, `aiChat` panel with typing indicator, tab router (`go('tab')`), `state` + `save()` + `render()`, Demo Controls (`demo.addControl(label, fn)`), Design Notes drawer.
-
-## Game feel checklist (every interaction)
-- Press feedback: scale 0.97 on `:active`.
-- Rewards: popup with item cards + short burst animation + number count-up.
-- Progress: animated bar fill; show "x/y" and what's unlocked next.
-- Time pressure: countdowns (`02:13:45`) and "NEW" badges, used sparingly.
-- Locked states: dimmed + lock icon + unlock condition text.
-- Empty states: friendly line + one action.
-
-## Images and icons
-- Prefer inline SVG or emoji-free icon glyphs drawn with CSS; emoji only as small accents.
-- Web images (weapon art, character art) are allowed as decoration with `onerror` fallback to a gradient tile. Never depend on them for layout.
-
-## Avoid (looks generic / AI-made)
-- Purple-to-blue SaaS gradients on everything, glassmorphism everywhere, centred hero + three feature cards.
-- Lorem ipsum, "Feature 1/2/3", placeholder names like "Player123" (use believable gamer tags: `Zyn.Alpha`, `BOOYAH_Kai`, `ManilaSniper`).
-- Too many colours; more than one primary button per screen; tiny unreadable text.
-- Fake precision without labels (say "模拟数据" in the Design Notes).
-
-## Copy
-- Short, active, game-like: "领取", "前往", "再来一局", "今日剩余 2 次".
-- Show the benefit, not the mechanism: "连败也不掉星" instead of "loss protection algorithm enabled".
+- [OpenAI Frontend prompt instructions](https://developers.openai.com/api/docs/guides/frontend-prompt) and [OpenAI’s frontend design article](https://developers.openai.com/blog/designing-delightful-frontends-with-gpt-5-4) for hierarchy, context and a usable first screen.
+- [Anthropic frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) for choosing a visual direction grounded in the subject.

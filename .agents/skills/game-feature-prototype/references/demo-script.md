@@ -1,34 +1,8 @@
-# DEMO.md template (3-minute talk track)
+# Demo prompts
 
-Write it in the language of the interview (default Chinese). Keep each part short; the live click-through is the centre.
+Match the task's presentation instructions. If a talk track helps, fit it on one screen in `prototype/DEMO.md`.
 
-```markdown
-# 演示讲稿：<功能名>
-
-## 0. 一句话（10 秒）
-我做的是 <功能名>：帮助 <玩家群体> 解决 <问题>，目标是提升 <主指标>。
-
-## 1. 为什么做（30 秒）
-- 玩家现在的问题：<具体行为 + 数字或假设>
-- 为什么是现在 / 为什么对 Garena 重要：<例如活跃用户持平，新玩家和回流是增长杠杆>
-
-## 2. 现场演示（90 秒，按这个点击顺序）
-1. <打开 → 看到什么>
-2. <点击 X → 反馈 Y>（演示控制：<用哪个按钮跳过等待>）
-3. <惊喜时刻>
-4. 打开"设计说明"，指出 KPI 和风险
-
-## 3. 怎么衡量（20 秒）
-- 主指标：<…>；护栏：<…>；先在 <一个市场> 做 A/B 测试
-
-## 4. 下一步（20 秒）
-- <真实版本要接什么数据 / AI 怎么接入 / 还要验证什么>
-
-## 5. 我是怎么用 AI 做的（20 秒，面试官关心）
-- 先让 AI 写需求和拆任务，再分步骤实现，每一步自测并存档；用自定义 skill 固定了工作流程和设计规范
-
-## 可能被问到的问题
-1. 为什么选这个玩家群体？→ <…>
-2. 如果效果不好怎么办 / 怎么验证？→ <…>
-3. 这个功能会不会伤害付费或公平？→ <…>
-```
+1. Name the player, moment and friction in one sentence.
+2. Open the working feature. Show the normal click path from the first player decision to a visible consequence. Demonstrate one alternate state if it explains the product choice. Label any simulations as you use them.
+3. Explain one product trade-off and how you would measure success and watch for harm. Name the next assumption you would validate with real players or data.
+4. If asked about Codex, give one concrete example of how you directed it and what you verified or corrected yourself.
