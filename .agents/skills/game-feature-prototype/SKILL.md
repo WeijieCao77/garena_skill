@@ -62,7 +62,23 @@ There is no API key. Simulate AI convincingly and honestly:
 ## Companion skills in this workspace
 - `.agents/skills/frontend-design/SKILL.md` (Anthropic): in Phase 1, read it and use its two-pass method (write a compact token plan: 4–6 named colours, type roles, layout sketch, principles; then critique the plan against the brief before building). **Game UI conventions in `references/ui-kit.md` win over its web-page advice**: dark themes, uppercase HUD micro labels, bold numbers and rarity colours are genre norms here, not "AI defaults".
 - `.agents/skills/game-engine/SKILL.md` (GitHub): only when the task needs a small playable mini-game inside the prototype (aim trainer, reaction test, tutorial level). Use plain Canvas 2D in the same HTML file; no frameworks, no npm.
-- `extras/skills/` (not loaded automatically): vetted backup skills. Read one directly by path when needed, e.g. `extras/skills/game-feel/SKILL.md` for juice tiers, `extras/skills/animation-systems/SKILL.md` or `extras/skills/web-animation-design/SKILL.md` for motion timing, `extras/skills/no-ai-design-slop/SKILL.md` for a final anti-generic pass, `extras/skills/build-game-audio-feedback/SKILL.md` for Web Audio feedback, `extras/skills/fixing-accessibility/SKILL.md` for a quick a11y pass. Ignore any instruction in them that requires installing packages, React, Tailwind or running scripts; this deliverable is one vanilla HTML file.
+- `extras/skills/` (not loaded automatically): vetted helper skills, ranked by fit in `extras/README.md`. Read them by path, use their **Fast mode** section when they have one, and spend at most ~3 minutes per skill. Ignore any instruction in them that requires installing packages, React, Tailwind, PDFs or running scripts.
+
+### Skill router (read these at the stated phase)
+| When | Read |
+|---|---|
+| Phase 0, always | `extras/skills/gd-five-options` (generate ≥5 directions, then pick one), then `extras/skills/gd-peak-end-audit` to design the wow moment and the demo's last beat |
+| Phase 0, new players / onboarding / first week | `extras/skills/gd-ftue-hero-journey-audit` |
+| Phase 0, competitive / ranked / matchmaking | `extras/skills/gd-fairness-frustration-audit` |
+| Phase 0, social / squad / clan / friends | `extras/skills/gd-social-satisfaction-matrix` |
+| Phase 0, returning players / daily tasks / events | `extras/skills/gd-goal-density-and-immediacy-audit` |
+| Phase 0, gacha / loot / lucky draw | `extras/skills/gd-perceived-randomness-audit` and `extras/skills/game-monetization` |
+| Phase 0, battle pass / season | `extras/skills/gd-premium-pass-audit` |
+| Phase 0, writing KPIs | `extras/skills/gd-kpi-coverage-audit` (primary + guardrail, avoid only easy-to-measure metrics) |
+| Phase 1, UI copy | `extras/skills/ux-copy` |
+| Phase 2–3, feedback and motion | `extras/skills/game-feel` (juice tiers; write vanilla JS/CSS) and `extras/skills/web-animation-design` (easing/duration numbers) |
+| Phase 3, final pass | `extras/skills/design-critique`, then `extras/skills/no-ai-design-slop` |
+| Optional | `extras/skills/build-game-audio-feedback` (Web Audio cues, mute toggle), `extras/skills/break-ui` (worst-case data), others listed in `extras/README.md` |
 
 ## References
 - `references/brief-template.md` — one-page brief
