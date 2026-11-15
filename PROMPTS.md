@@ -182,4 +182,5 @@ bug：在【任务页】点【领取】
 | Codex 跑偏，或者跑太久 | 点停止（或按 Esc），然后发：`停。只做【……】，做完就停` |
 | 需要开一个新对话 | 在同一个项目里新开对话，发：`$game-feature-prototype 读 @prototype/BRIEF.md 和 index.html 开头的分区目录，接着做【……】` |
 | 想精确地指出要改哪一处 | 在 Codex 桌面版的 diff 里点对应那一行，直接写意见 |
+| Codex 说“浏览器验证不了”，只做了脚本测试 | 发：`用 skill 里的 headless Edge 方法截图并点一遍主流程，看截图找问题，有问题直接修` |
 | 用 `$` 找不到 skill | 发：`读取 .agents/skills/game-feature-prototype/SKILL.md 并按它执行`，然后接着发 A1 |
