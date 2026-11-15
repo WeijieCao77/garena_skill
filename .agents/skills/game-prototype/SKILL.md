@@ -1,17 +1,18 @@
 ---
-name: game-feature-prototype
-description: Build and verify a time-boxed interactive HTML prototype of a game feature or player-facing system for Garena GMAP R4 or a similar exercise. Use for a concrete game product brief (游戏功能原型) such as onboarding, ranked play, social, live ops, esports, or in-game tooling. Not for general websites or production code.
+name: game-prototype
+description: Build, polish and review (复查) a single-file interactive HTML prototype of a chosen game feature for Garena R4 or a similar timed exercise. Use once an idea is chosen, and for edits, bug fixes and pre-delivery review. For generating ideas, use $game-brainstorm.
 ---
 
-# Game feature prototype
+# Game prototype
 
 The actual task decides what to build, how to submit it, and whether to present it. In Garena R4, use Codex on the provided Windows machine to deliver an interactive HTML page. Default to one `prototype/index.html` with inline CSS and JavaScript that opens in Edge or Chrome by double-click, without a runtime, server, or deployment. Browser research and optional media are allowed. The core flow should work when media or the network is unavailable. Use the task's UI language, or Simplified Chinese when unspecified.
 
-## Start with the player decision
+## Start from the chosen concept
 
-- If the prompt has yet to arrive, work only on a practice brief or setup. Once it arrives, extract the explicit requirements and pick the player, moment, and concrete friction. Sketch the default state, the player's decision, the visible consequence, and the next action. Record the requirement checklist, assumptions and acceptance steps in a short `prototype/BRIEF.md`; [brief prompts](references/brief-template.md) can help if the brief is ambiguous.
-- Continue straight into implementation. Ask only when a missing decision would materially change the deliverable and cannot be inferred. Compare a couple of options if a genuine product trade-off is unresolved. Prefer one mechanic that changes what the player can do. A reward, animation, or chat panel earns its place when it serves that mechanic.
-- If the brief lacks a mechanic or risk to test, use the relevant row in [feature patterns](references/game-context.md). Use game references for terminology and interface conventions. Treat invented numbers as demo data or hypotheses, and verify any real-world claims you include.
+- Read `prototype/BRIEF.md`. If it has a moment card, build that idea and keep its screenshot moment as the first priority after the main path. If there is no brief, write a short one from the task: requirement checklist, player and moment, the player's verb, the AI's role, the demo click path. Tell the user that `$game-brainstorm` can widen the options, and don't run a brainstorm yourself.
+- Continue straight into implementation. Ask only when a missing decision would materially change the deliverable and cannot be inferred. Prefer one mechanic that changes what the player can do. A reward, animation, or chat panel earns its place when it serves that mechanic.
+- For the edge state and measure that fit the brief type, see [feature patterns](../game-brainstorm/references/feature-patterns.md). Treat invented numbers as demo data or hypotheses, and verify any real-world claims you include.
+- `prototype/IDEAS.md`, if present, holds parked ideas. Use it when the user asks for a wow moment or an extra feature.
 
 ## Build the shortest working path
 
@@ -22,8 +23,9 @@ The actual task decides what to build, how to submit it, and whether to present 
 - Keep the main state understandable and guard against duplicate rewards/actions when relevant. For persistence, use a versioned storage key and let the session work in memory if storage is unavailable. Prefer inline assets when an image is essential to the single-file demo. A playable Canvas mechanic is appropriate when the brief calls for real-time input or simulation.
 - When the user gives a deadline, check the local time (`Get-Date` in PowerShell) before sizing a step. In the last 30 minutes, stop adding features and only fix, verify and prepare the demo.
 
-## Verify and hand over
+## Verify, review and hand over
 
 - Per turn, verify the behavior you changed. Run the full checklist once, at handover. Handover is done when every item in the BRIEF.md checklist has been checked on the actual page.
 - Open the exact deliverable through `file://`. Follow the real controls from a fresh state to the result, exercise the most likely edge case, and replay after reset or reload as appropriate. Check the first screen at the presentation size, the intended player viewport and the browser console. Use [the QA checklist](references/qa-checklist.md) for specifics. If no browser tool can open the file, use headless Edge or Chrome from the shell rather than simulating the DOM in Node. In PowerShell: `mkdir prototype\qa -Force`, `$edge = "${env:ProgramFiles(x86)}\Microsoft\Edge\Application\msedge.exe"`, `$u = [System.Uri]::new((Resolve-Path prototype\index.html).Path).AbsoluteUri`, then `& $edge --headless=new --window-size=1280,800 --screenshot="$PWD\prototype\qa\shot.png" $u` and view the image. To check clicks, copy the page to `prototype/qa/`, append a script that clicks the main path and writes the final state and any `error` events into the DOM, and read it with `--dump-dom --virtual-time-budget=3000`. If that also fails, ask the user to click a named path and describe what they see.
 - Report the file path, what you actually verified, and the shortest click path. If the prompt requires a presentation, use [demo prompts](references/demo-script.md) to prepare a short talk track from the actual build. State the product hypothesis and relevant guardrail when they explain the design.
+- When the user asks for a review (复查), add no features. Open the page with a browser tool or headless Edge, walk the demo path, and report findings ordered by demo impact: (1) breaks the demo, (2) confusing in the first 5 seconds, (3) the screenshot moment is weak or hidden, (4) the AI does not visibly respond to player data, (5) polish. Fix (1) and (2) straight away unless told otherwise. List the rest with a one-line fix each and wait for the user to choose.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Game Prototype"
+  short_description: "Build, polish and review a single-file HTML game feature prototype"
+  default_prompt: "用 $game-prototype 按 prototype/BRIEF.md 开工：先做第一条可点击的主流程，做完停下汇报。"

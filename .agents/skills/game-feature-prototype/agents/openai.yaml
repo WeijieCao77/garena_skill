@@ -1,4 +1,0 @@
-interface:
-  display_name: "Game Feature Prototype"
-  short_description: "Build and verify a timed HTML game feature prototype"
-  default_prompt: "用 $game-feature-prototype 做下面这道题。本轮只出方案、先不改文件：要求清单、2 个方向和推荐，不超过 12 行。"

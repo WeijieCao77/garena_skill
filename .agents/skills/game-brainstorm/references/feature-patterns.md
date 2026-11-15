@@ -1,4 +1,15 @@
-# Game feature patterns
+# Garena titles and brief types
+
+## Starting notes on titles
+
+Treat these as starting points. Search the web to confirm current modes, events and markets before you rely on them.
+
+- **Free Fire**: mobile battle royale with short matches (about 10 minutes, up to 50 players), built to run on low-end phones. Strong in Southeast Asia and Latin America. Has characters with skills, pets, the Booyah Pass, frequent collaborations and FFWS esports.
+- **Arena of Valor**: 5v5 mobile MOBA, popular in Thailand, Vietnam and Taiwan. Hero mastery, ranked climbing and team coordination drive play.
+- **Call of Duty: Mobile**: Garena publishes it in parts of Southeast Asia. Multiplayer and battle royale modes, loadouts and ranked play.
+- **Players in these markets** often play with school or work friends, on shared or mid-range Android phones, over unstable mobile data, and follow creators and esports closely.
+
+## Game feature patterns
 
 Use the row that matches the prompt. Pick the player behavior the prototype should change, then make the benefit and trade-off visible in the flow. Verify title-specific or market-specific facts before using them. Label seeded values as simulated.
 

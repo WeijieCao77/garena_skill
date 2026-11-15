@@ -1,0 +1,4 @@
+interface:
+  display_name: "Game Brainstorm"
+  short_description: "Brainstorm playable game feature ideas, then hand one to $game-prototype"
+  default_prompt: "用 $game-brainstorm 和我一起想这道题的创意。先发散 10 个左右的点子，每个一行，然后问我哪几个有感觉。"
