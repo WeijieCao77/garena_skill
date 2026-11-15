@@ -19,6 +19,7 @@ Codex 的项目和用户 skill 路径见 [OpenAI 官方文档](https://learn.cha
 
 | 路径 | 用途 |
 | --- | --- |
+| `PROMPTS.md` | 现场提示词模板：开场、中间改动、修 bug、回退、交付前验收和讲稿。复制后改【】即可发送。 |
 | `.agents/skills/game-feature-prototype/` | 主 skill、题型速查、UI 指南、验收和演示提示。`assets/scaffold.html` 是可直接打开的组队样例，可复用单步选择流程的骨架。 |
 | `examples/codm-rookie-camp/` | 原有 CODM 新兵训练营样例。可对照较完整的演示规模。 |
 | `.agents/skills/frontend-design/`、`.agents/skills/game-engine/` | 手动调用的外部参考，分别用于扩展设计探索和真正的小游戏。 |
