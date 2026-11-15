@@ -2,6 +2,8 @@
 
 这些参考适合赛前练习和定向复盘。主 skill 已内置常见题型的取舍和基础 UI 检查。遇到具体问题时，可按需阅读一份参考，例如让 Codex 读 `extras/skills/gd-fairness-frustration-audit/SKILL.md`，只检查排位失败后是否解释了公平规则。
 
+这个文件夹已写进根目录的 `.ignore`，Codex 搜索时会跳过它。需要时直接说路径，例如 `读 extras/skills/ux-copy/SKILL.md`。
+
 表中的星级表示与限时原型的匹配程度。按题目判断是否需要使用；其中的工具和工作流要求以现场环境为准。
 
 ---

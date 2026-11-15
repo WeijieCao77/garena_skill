@@ -1,0 +1,4 @@
+# Keep rg searches and file listings focused on the live prototype.
+# These folders are reference material; open their files by path when needed.
+extras/
+examples/

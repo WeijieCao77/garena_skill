@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>组队大厅</title>
-  <!-- Optional scaffold for a select-and-confirm flow. Replace the sample data, copy and storage key for the actual brief. -->
+  <!-- Optional scaffold for a select-and-confirm flow. Replace the sample data, copy and storage key for the actual brief.
+       Sections (find with rg -n "== NAME"): TOKENS, LAYOUT, SCREEN: lobby, DATA, STATE, RENDER, ACTIONS -->
   <style>
+    /* == TOKENS == */
     :root {
       color-scheme: dark;
       --bg: #141b1e;
@@ -16,6 +18,7 @@
       --accent: #d2ec90;
       font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", system-ui, sans-serif;
     }
+    /* == LAYOUT == */
     * { box-sizing: border-box; }
     body { margin: 0; background: var(--bg); color: var(--text); }
     main { width: min(100% - 2rem, 58rem); margin-inline: auto; padding-block: clamp(2rem, 7vw, 5rem); }
@@ -43,6 +46,7 @@
   </style>
 </head>
 <body>
+  <!-- == SCREEN: lobby == -->
   <main>
     <header>
       <h1>组队大厅</h1>
@@ -63,11 +67,13 @@
     </form>
   </main>
   <script>
+    /* == DATA == */
     const rooms = [
       { id: 'casual', name: '休闲双排', tag: '新手友好 · 语音可选', note: '先热身一局，再决定要不要打排位。', players: 1 },
       { id: 'ranked', name: '冲分双排', tag: '钻石段位 · 需要语音', note: '队伍已满，可以看看其他房间。', players: 2 },
       { id: 'warmup', name: '无麦练枪', tag: '不限段位 · 无需语音', note: '练两局近战，结束后各自离队。', players: 1 },
     ];
+    /* == STATE == */
     const storageKey = 'prototype.squad-lobby.v1';
     const form = document.querySelector('#lobby');
     const list = document.querySelector('#rooms');
@@ -100,6 +106,7 @@
       }
     }
 
+    /* == RENDER == */
     for (const room of rooms) {
       const label = document.createElement('label');
       label.className = 'room';
@@ -142,6 +149,7 @@
       statusMessage.textContent = message || (current ? `当前队伍：${current.name}` : '');
     }
 
+    /* == ACTIONS == */
     list.addEventListener('change', event => {
       selected = event.target.value;
       render();
