@@ -13,7 +13,7 @@
 2. 在 Codex 输入 `$`，确认能看到 `game-brainstorm` 和 `game-prototype`。如果找不到，先确认项目目录，再新开会话或重启 Codex。CLI 也可用 `/skills` 查看。必要时可把 `.agents\skills\` 下的这两个文件夹复制到 `%USERPROFILE%\.agents\skills\`。
 3. 权限保持默认（只能写当前项目、需要时才询问）。不要开“完全访问”；如果每次改文件都弹审批，就把权限切到允许写入当前项目的那一档。
 4. 打开 [`PROMPTS.md`](PROMPTS.md)：A0 检查环境 → A1 贴题目发散 → A2 来回聊 → A3 收敛 → A4 定下来 → A5 换 `$game-prototype` 开工。之后按需要用 B 和 C 两部分的模板。
-5. 若现场无法发现 skill，直接让 Codex 读取 `.agents/skills/game-brainstorm/SKILL.md`（做原型时换成 `game-prototype`）并按它执行，再贴题目。若 ZIP 无法下载但浏览器能访问文件，直接复制 `SKILL.md` 正文进 Codex。正文足以启动，参考文件可按需补充。
+5. 若现场无法发现 skill，让 Codex 读取 `AGENTS.md` 和 `.agents/skills/game-brainstorm/SKILL.md`（做原型时换成 `game-prototype`）并按它们执行，再贴题目。若 ZIP 无法下载但浏览器能访问文件，把 `AGENTS.md` 和对应的 `SKILL.md` 正文一起粘进 Codex：`AGENTS.md` 提供 BRIEF 字段、Locked 和检查点规则，少了它会丢掉截止时间和回退规则。参考文件可按需补充。
 6. 在资源管理器双击 `prototype\index.html`，或在 PowerShell 运行 `Start-Process .\prototype\index.html`。用实际的玩家控件走一遍，再按题目要求提交。
 
 Codex 的项目和用户 skill 路径见 [OpenAI 官方文档](https://learn.chatgpt.com/docs/build-skills#where-codex-loads-local-skills)。

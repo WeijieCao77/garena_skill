@@ -233,5 +233,5 @@ $game-prototype 复查。进入收尾，不再加新功能。在实际页面上�
 | 换模型 | 在同一个对话里切换即可。想创意可以用 Astra，制作和常规修 bug 用 Sol，难定位的 bug 再切回 Astra |
 | 需要开一个新对话 | 在同一个项目里新开对话，发：`$game-prototype 读 @prototype/BRIEF.md 和 index.html 开头的分区目录，接着做【……】` |
 | 想精确地指出要改哪一处 | 在 Codex 桌面版的 diff 里点对应那一行，直接写意见 |
-| Codex 说“浏览器验证不了”，只做了脚本测试 | 发：`用 skill 里的 headless Edge 方法截图并点一遍主流程，看截图找问题，有问题直接修` |
-| 用 `$` 找不到 skill | 发：`读取 .agents/skills/game-brainstorm/SKILL.md 并按它执行`（做的阶段换成 `game-prototype`），然后接着发 A1 |
+| Codex 说“浏览器验证不了”，只做了脚本测试 | 发：`沿用 A0 已确认可用的验证方式；浏览器排障累计不超过 5 分钟。无法实际点击时，给我点击路径，由我验证，不把脚本检查标成已验证。` |
+| 用 `$` 找不到 skill | 发：`读取 AGENTS.md 和 .agents/skills/game-brainstorm/SKILL.md 并按它们执行`（做的阶段换成 `game-prototype`），然后接着发 A1 |
