@@ -1,6 +1,6 @@
 # Garena facts and brief types
 
-Facts as of mid-November 2026, from Sea's Q3 2026 results and news coverage. Search the web for anything newer before quoting numbers in a demo.
+Facts as of mid-November 2026. Sources are at the end. Quarterly figures, the Free Fire India date and the FFWS dates are from official or widely confirmed sources; viewer peaks and event numbers come from press coverage, so say "reported". During the exercise, look up only facts the task directly depends on.
 
 ## Garena
 
@@ -46,3 +46,12 @@ Pick the player behavior the prototype should change, then show the benefit and 
 | Pass / economy | Make value and odds clear at the decision | Low balance, duplicate reward, pay-to-win | Informed completion (complaints, drop-off) |
 | Esports | Turn a viewing moment into something to play | Event over, stream down, reward claimed | Watch-to-play conversion (viewing disruption) |
 | Post-match AI | One tip grounded in a match stat | Missing data, uncertainty, fairness in play | Tip applied (perceived usefulness) |
+
+## Sources
+
+- Sea Q3 2026 results: https://www.financialcontent.com/article/bizwire-2026-11-10-sea-limited-reports-third-quarter-2026-results
+- Free Fire × NARUTO award, 100M+ DAU: https://ff.garena.com/en/article/1701/
+- Free Fire India launch: https://www.storyboard18.com/amp/quantum-brief/gerena-announces-launch-of-free-fire-in-india-12872.htm and https://www.esquireindia.co.in/amp/story/tech-and-auto/gaming/garena-free-fire-india-launch-how-to-download-diwali-campaign-free-fire-india-vs-max-parental-controls
+- FFWS Global Finals 2026: https://liquipedia.net/freefire/Free_Fire_World_Series/2026 and https://www.sportskeeda.com/free-fire/news-ffws-2026-global-finals-all-24-qualified-teams-dates-announced
+- FFWS viewers: https://respawn.outlookindia.com/esports/esports-news/buriram-united-wins-free-fire-2025-as-jujutsu-kaisen-collab-nears and https://blockport.io/latest-news/ffws-sea-spring-2026-record-455000-viewers/
+- CODM in Singapore, Malaysia and the Philippines: https://esports.gg/news/codm/cod-mobile-garena-2026-esports-plan-singapore-malaysia-philippines and https://www.spin.ph/esports/gep-gsi-take-centerstage-at-codm-summer-festival-a5097-20260518
